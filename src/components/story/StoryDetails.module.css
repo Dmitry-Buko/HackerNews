@@ -1,0 +1,20 @@
+.back {
+  margin: 16px 0 8px;
+  padding-inline: 4px;
+}
+
+.title {
+  margin: 0 0 8px;
+}
+
+.meta {
+  font-size: 14px;
+}
+
+.divider {
+  margin: 16px 0;
+}
+
+.commentsTitle {
+  margin: 0;
+}
