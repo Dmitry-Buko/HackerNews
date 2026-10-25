@@ -1,5 +1,20 @@
 import { hnApi } from "./hnApi";
-import type { Story, Comment, StoryPageData, RawItem } from "../types/hn";
+import type { Story, Comment, StoryPageData } from "../types/hn";
+
+interface RawItem {
+  id: number;
+  type: "story" | "comment" | "job" | "poll" | "pollopt";
+  title?: string;
+  url?: string;
+  by?: string;
+  time?: number;
+  score?: number;
+  descendants?: number;
+  kids?: number[];
+  text?: string;
+  deleted?: boolean;
+  dead?: boolean;
+}
 
 //маппер новость
 function mapStory(raw: RawItem | null): Story | null {
@@ -31,7 +46,7 @@ function mapComment(raw: RawItem | null): Comment | null {
 
 //загрузка новости по ид
 async function fetchItem<T>(id: number): Promise<T | null> {
-  const { data } = await hnApi.get<T | null>(`/v0/item/${id}.json`);
+  const { data } = await hnApi.get<T | null>(`/item/${id}.json`);
   return data;
 }
 
@@ -53,8 +68,14 @@ async function fetchInChunks<T>(
   const result: T[] = [];
   for (let i = 0; i < ids.length; i += chunkSize) {
     const chunk = ids.slice(i, i + chunkSize);
-    const chunkResult = await Promise.all(chunk.map(load));
-    result.push(...chunkResult.filter(isNotNull));
+    const chunkResult = await Promise.allSettled(chunk.map(load));
+    const correctTasks = chunkResult
+      .filter((item) => item.status === "fulfilled")
+      .map((item) => item.value);
+    chunkResult
+      .filter((item) => item.status === "rejected")
+      .forEach((item) => console.warn(item.reason));
+    result.push(...correctTasks.filter(isNotNull));
   }
   return result;
 }
@@ -66,6 +87,10 @@ async function fetchStoryById(id: number): Promise<Story | null> {
 export async function fetchNews(): Promise<Story[]> {
   const ids = await fetchStoryIds();
   const stories = await fetchInChunks(ids, 10, fetchStoryById);
+  console.log(
+    "stories:",
+    stories.sort((a, b) => b.time - a.time),
+  );
   return stories.sort((a, b) => b.time - a.time);
 }
 
@@ -83,6 +108,8 @@ export async function fetchStoryWithRootComments(
   if (!story) {
     throw new Error(`Story ${id} not found`);
   }
+  // console.log('story:', story);
+
   const rootComments = await fetchComments(story.kids);
   return { story, rootComments };
 }

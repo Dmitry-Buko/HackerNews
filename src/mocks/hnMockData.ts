@@ -14,14 +14,14 @@ const now = Math.floor(Date.now() / 1000);
 
 export const mockStories = [
   {
+    by: 'rberteig',
+    descendants: 5,
     id: 42131001,
+    kids: [42131101, 42131102, 42131103],
+    score: 89,
+    time: now - 23 * minute,
     title: 'SQLite as an application file format',
     url: 'https://www.sqlite.org/appfileformat.html',
-    by: 'rberteig',
-    time: now - 23 * minute,
-    score: 89,
-    descendants: 5,
-    kids: [42131101, 42131102, 42131103],
     category: 'Databases',
   },
   {

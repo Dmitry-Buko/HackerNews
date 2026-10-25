@@ -20,21 +20,6 @@ export interface Comment {
   dead?: boolean;
 }
 
-export interface RawItem {
-  id: number;
-  type: "story" | "comment" | "job" | "poll" | "pollopt";
-  title?: string;
-  url?: string;
-  by?: string;
-  time?: number;
-  score?: number;
-  descendants?: number;
-  kids?: number[];
-  text?: string;
-  deleted?: boolean;
-  dead?: boolean;
-}
-
 export interface StoryPageData {
   story: Story;
   rootComments: Comment[];
