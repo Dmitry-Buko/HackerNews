@@ -50,8 +50,8 @@ function NewsListDemo() {
 }
 
 function StoryPageDemo() {
-  const { story, rootComments, loading } = useStory(50233883);
-  const comments = useStoryComments(50233883, rootComments);
+  const { story, rootComments, loading } = useStory(50259604);
+  const comments = useStoryComments(50245524, rootComments);
   // const story = mockStories[0];
   // const story = stories;
   const [commentsLoading, setCommentsLoading] = useState(false);

@@ -7,6 +7,7 @@ import { NewsListItem } from './NewsListItem';
 import styles from './NewsListView.module.css';
 
 interface NewsListViewProps {
+  /** темы новостей */
   stories: Story[];
   /** идёт загрузка (первая или обновление) */
   loading?: boolean;
@@ -20,11 +21,6 @@ interface NewsListViewProps {
   onOpenStory?: (storyId: number) => void;
 }
 
-/**
- * Вся главная страница, кроме выбора данных: фиксированная шапка с кнопкой
- * обновления, состояния загрузки/ошибки/пустого списка и сам список.
- * Компонент «глупый»: что рисовать решает контейнер через props.
- */
 export function NewsListView({
   stories,
   loading = false,
