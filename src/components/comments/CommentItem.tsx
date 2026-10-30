@@ -20,11 +20,6 @@ interface CommentItemProps {
   onToggleChildren?: (comment: Comment) => void;
 }
 
-/**
- * Один комментарий и его ветка. Рекурсивен: вложенные ответы рендерит этим же
- * компонентом, получая их через getChildComments — так вся работа с API и кэшем
- * запросов остаётся в контейнере, компонент только рисует то, что ему дали.
- */
 export function CommentItem({
   comment,
   getChildComments,
@@ -72,7 +67,6 @@ export function CommentItem({
             Comment deleted
           </Typography.Text>
         ) : (
-          // text приходит HTML-строкой из Hacker News API
           <div dangerouslySetInnerHTML={{ __html: comment.text }} />
         )}
       </div>

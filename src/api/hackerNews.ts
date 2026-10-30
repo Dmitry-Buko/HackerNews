@@ -87,10 +87,6 @@ async function fetchStoryById(id: number): Promise<Story | null> {
 export async function fetchNews(): Promise<Story[]> {
   const ids = await fetchStoryIds();
   const stories = await fetchInChunks(ids, 10, fetchStoryById);
-  // console.log(
-  //   "stories:",
-  //   stories.sort((a, b) => b.time - a.time),
-  // );
   return stories.sort((a, b) => b.time - a.time);
 }
 

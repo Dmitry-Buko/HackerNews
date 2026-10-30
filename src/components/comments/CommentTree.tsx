@@ -18,11 +18,6 @@ interface CommentTreeProps {
   onToggleChildren?: (comment: Comment) => void;
 }
 
-/**
- * Дерево комментариев: корневой список + состояния загрузки/ошибки/пусто.
- * Вложенность обеспечивает рекурсивный CommentItem. Компонент кладите на
- * страницу рядом с StoryDetails (он сам не тянет данные и не знает новость).
- */
 export function CommentTree({
   rootComments,
   loading = false,

@@ -17,7 +17,7 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <App />
-        <ReactQueryDevtools />
+        {import.meta.env.DEV && <ReactQueryDevtools />}
       </BrowserRouter>
     </QueryClientProvider>
   </StrictMode>,

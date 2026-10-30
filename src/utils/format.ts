@@ -1,8 +1,3 @@
-/**
- * Чистые функции форматирования для отображения данных.
- * Ничего не знают ни об API, ни о слое данных — только превращают числа в строки.
- */
-
 /** Английские формы множественного числа: plural(5, 'point', 'points') → 'points' */
 export function plural(n: number, one: string, many: string): string {
   return n === 1 ? one : many;
